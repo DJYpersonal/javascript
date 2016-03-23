@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播</title>
+	<script src="../animate1.js"></script>
+	<style>
+	.banner{
+		width: 740px;
+		height: 350px;
+		position: relative;
+		margin: 100px auto;
+		vertical-align: middle;
+	}
+	.banner a{
+		width:740px;
+        height: 350px;
+        position:absolute;
+        left: 0;
+        top:0;
+	}
+	.btnL{
+		z-index: 9999;
+		width: 30px;
+		height: 70px;
+		position: absolute;
+		left:0;
+		top:50%;
+		margin-top: -35px;
+		opacity: 0.5;
+		cursor: pointer;
+    }
+    .btnR{
+		z-index: 9999;
+		width: 30px;
+		height: 70px;
+		position: absolute;
+		right:0;
+		top:50%;
+		margin-top: -35px;
+		opacity: 0.5;
+		cursor: pointer;
+    }
+    .anniu{
+    	z-index:999;
+    	width: 150px;
+    	height: 15px;
+    	position: absolute;
+        bottom:20px;
+        left:50%;
+        margin-left: -75px;
+    }
+    .anniu span{
+    	width: 15px;
+    	height: 15px;
+    	border-radius: 50%;
+    	background: #ccc;
+    	margin-right: 10px;
+    	display:block;
+    	float: left;
+    	cursor: pointer;
+    }
+    .anniu .hot{
+    	background: red;
+    }
+
+
+	</style>
+</head>
+<body>
+	<div class="banner">
+		<div class="btnL">
+			<img src="../image/btn1.jpg" alt="">
+		</div>
+		<div class="btnR">
+			<img src="../image/btn2.jpg" alt="">
+		</div>
+		<a href="javascript" style="z-index:6">
+			<img src="../image/banner1.jpg" alt="">
+		</a>
+		<a href="javascript">
+			<img src="../image/banner2.jpg" alt="">
+		</a>
+		<a href="javascript">
+			<img src="../image/banner3.jpg" alt="">
+		</a>
+		<a href="javascript">
+			<img src="../image/banner4.jpg" alt="">
+		</a>
+		<a href="javascript">
+			<img src="../image/banner5.jpg" alt="">
+		</a>
+		<a href="javascript">
+			<img src="../image/banner6.jpg" alt="">
+		</a>
+		<div class="anniu">
+			<span class="hot"></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+</body>
+<script>
+	window.onload=function(){
+      var ban=document.getElementsByClassName("banner")[0];
+      var imgs=document.getElementsByTagName("a",ban);
+      var spans=document.getElementsByTagName("span",ban);
+      var btnL=document.getElementsByClassName("btnL")[0];
+      var btnR=document.getElementsByClassName("btnR")[0];
+
+      var t;
+      var num=0;
+      var flag=true;
+      t=setInterval(moveR,1500);
+
+     //鼠标移上停止，移走继续自动轮播
+      ban.onmouseover=function(){
+      	clearInterval(t);
+      }
+      ban.onmouseout=function(){
+        clearInterval(t);
+        t=setInterval(moveR,1500);
+      }
+
+     //圆点按钮
+     for(var i=0;i<spans.length;i++){
+     	spans[i].index=i;
+     	spans[i].onclick=function(){
+     		num=this.index;
+     		for(var j=0;j<imgs.length;j++){
+     			animate(imgs[j],{opacity:0});
+      		    spans[j].style.background="#ccc"
+      	}
+      	animate(imgs[this.index],{opacity:1});
+      	spans[this.index].style.background="red";
+     		}
+     	}
+    
+
+
+
+     //左右按钮
+     btnR.onclick=function(){
+     	moveR();
+     }
+     btnL.onclick=function(){
+     	moveL();
+     }
+
+     function moveL(){
+     	num--;
+      	if(num<0){
+      		num=imgs.length-1;
+      	}
+      	for(var i=0;i<imgs.length;i++){
+      		animate(imgs[i],{opacity:0});
+      		spans[i].style.background="#ccc"
+      	}
+      	animate(imgs[num],{opacity:1});
+      	spans[num].style.background="red";
+     }
+     
+      //自动轮播
+      function moveR(){
+      	num++;
+      	if(num==imgs.length){
+      		num=0;
+      	}
+      	for(var i=0;i<imgs.length;i++){
+      		animate(imgs[i],{opacity:0});
+      		spans[i].style.background="#ccc"
+      	}
+      	animate(imgs[num],{opacity:1});
+      	spans[num].style.background="red";
+
+      }
+ }
+
+	
+
+</script>
+</html>
