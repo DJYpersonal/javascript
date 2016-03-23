@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>按需加载</title>
+	<style>
+	.head{
+		width: 740px;
+		height: 100px;
+		background:#ccc;
+		text-align: center;
+		margin: 0 auto;
+		line-height: 100px;
+	}
+
+	.flo{
+		width: 740px;
+		height: 350px;
+		margin: 10px auto;
+		text-align: center;
+	}
+
+	</style>
+</head>
+<body>
+    <div class="head">
+    	按需加载开始
+    </div>
+	<div class="floor">
+		<div class="flo">
+			<a href="javascript">
+				<img src="" alt="" title="./image/banner1.jpg">
+			</a>
+		</div>
+		<div class="flo">
+			<a href="javascript">
+				<img src="" alt="" title="./image/banner2.jpg">
+			</a>
+		</div>
+		<div class="flo">
+			<a href="javascript">
+				<img src="" alt="" title="./image/banner3.jpg">
+			</a>
+		</div>
+		<div class="flo">
+			<a href="javascript">
+				<img src="" alt="" title="./image/banner4.jpg">
+			</a>
+		</div>
+		<div class="flo">
+			<a href="javascript">
+				<img src="" alt="" title="./image/banner5.jpg">
+			</a>
+		</div>
+		<div class="flo">
+			<a href="javascript">
+				<img src="" alt="" title="./image/banner6.jpg">
+			</a>
+		</div>
+
+	</div>
+	<div class="bottom">
+		按需加载结束
+	</div>
+</body>
+<script>
+	window.onload=function(){
+		var floor=document.getElementsByClassName("flo");
+		var floorArr=[];
+		var cH=document.documentElement.clientHeight;
+		for(var i=0;i<floor.length;i++){
+  	       floorArr.push(floor[i].offsetTop);
+        }
+
+        window.onscroll=function(){
+        	var obj=document.body.scrollTop?document.body:document.documentElement;
+  	        var tops=obj.scrollTop;
+  	        for(var i=0;i<floor.length;i++){
+      //获取当前楼层下的图片
+  		      if(tops+cH>=floorArr[i]+200){
+  			    var imgs=document.getElementsByTagName("img",floor[i]);
+        //给当前图片加路径
+  			      for(var j=0;j<imgs.length;j++){
+  				     imgs[j].src=imgs[j].title
+  			        }
+  		      }
+  	        } 
+        }
+	}
+
+</script>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>节点轮播</title>
+	<script src="../animate1.js"></script>
+	<style>
+
+      .window{
+            width: 740px;
+            height: 350px;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .window a{
+            display: block;
+            font-size: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        img{
+            border: none;
+        }
+        ul{
+            width: 100px;
+            height: 10px;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            margin-left: -50px;
+            list-style: none;
+            z-index: 9999;
+        }
+        li{
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            list-style: none;
+            float: left;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .hot{
+            background: red;
+        }
+        .btn{
+    width: 100%;
+    height: 70px;
+    position:absolute;
+    left:0;
+    top:50%;
+    margin-top: -35px;
+    z-index: 100;
+    cursor: pointer;
+}
+.btn_left{
+    width:30px;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    float: left;
+    opacity: 0.5;
+}
+
+.btn_right{
+    width:30px;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    float: right;
+    opacity: 0.5;
+}
+	</style>
+</head>
+<body>
+	<div class="window">
+    <a href="#">
+        <img src="../image/banner1.jpg" alt="" />
+    </a>
+    <a href="#">
+        <img src="../image/banner2.jpg" alt="" />
+    </a>
+    <a href="#">
+        <img src="../image/banner3.jpg" alt=""/>
+    </a>
+    <a href="#">
+        <img src="../image/banner4.jpg" alt=""/>
+    </a>
+    <a href="#">
+        <img src="../image/banner5.jpg" alt=""/>
+    </a>
+    <div class="btn">
+           <div class="btn_left">
+             <img src="../image/btn1.jpg">
+           </div>
+           <div class="btn_right">
+             <img src="../image/btn2.jpg">
+           </div>
+    </div>
+    
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    
+    </ul>
+
+</div>
+
+</body>
+<script>
+	window.onload=function(){
+	var ban=document.getElementsByClassName("window")[0];
+    var imgs=document.getElementsByTagName("a",ban);
+    var lis=document.getElementsByTagName("li",ban);
+    var btnR=document.getElementsByClassName("btn_right")[0];
+    var btnL=document.getElementsByClassName("btn_left")[0];
+    var index=0;
+    var num=0;
+    var imgW=parseInt(getStyle(imgs[0],"width"));
+    var t;
+    var flag=true;
+    for(var i=0;i<imgs.length;i++){
+    	if(i==0){
+    		continue;
+    	}
+    	imgs[i].style.left=imgW+"px";
+    }
+    lis[0].style.background="red";
+    t=setInterval(moveR,1500);
+
+    //鼠标上移停止，移走继续
+    ban.onmouseover=function(){
+        clearInterval(t);
+    }
+    ban.onmouseout=function(){
+        t=setInterval(moveR,1500);
+    }
+
+    //按钮
+    for (var i=0;i<lis.length;i++){
+        lis[i].index=i;
+        lis[i].onclick=function(){
+            if(index==this.index){
+                return;
+            }
+            for(var i=0;i<imgs.length;i++){
+                lis[i].style.background="#fff";
+            }
+            lis[this.index].style.background="#c81623";
+            imgs[this.index].style.left=imgW+"px";
+            animate(imgs[index],{left:-imgW});
+            animate(imgs[this.index],{left:0});
+            index=num=this.index;
+            
+        }
+    }
+
+
+    //左右按钮
+    btnR.onclick=function(){
+        moveR();
+    }
+    btnL.onclick=function(){
+        moveL();
+    }
+
+    function moveL(){
+        if(!flag){
+            return;
+        }
+        flag=false;
+        num--;
+        if(num<=0){
+            num=imgs.length-1;
+        }
+        imgs[num].style.left=-imgW+"px";
+        animate(imgs[index],{left:imgW},600,function(){
+            flag="true"
+        });
+        animate(imgs[num],{left:0},600,function(){
+            flag="true"
+        });
+        for (var i=0;i<imgs.length;i++){
+            lis[i].style.background="#fff";
+        }
+        lis[num].style.background="#c81623";
+        index=num;
+    }
+
+    //自动轮播
+    function moveR(){
+        if(!flag){
+            return;
+        }
+        flag=false;
+    	num++;
+    	if(num==imgs.length){
+    		num=0;
+    	}
+    	imgs[num].style.left=imgW+"px";
+    	animate(imgs[index],{left:-imgW},600,function(){
+            flag="true"
+        });
+    	animate(imgs[num],{left:0},600,function(){
+            flag="true"
+        });
+    	for (var i=0;i<imgs.length;i++){
+    		lis[i].style.background="#fff";
+    	}
+    	lis[num].style.background="#c81623";
+    	index=num;
+    }
+
+    function getStyle(obj,a){
+	if(obj.currentStyle){
+                   return obj.currentStyle[a];
+	}else{
+		return getComputedStyle(obj,null)[a];
+	}
+}
+
+}
+
+
+</script>
+</html>
