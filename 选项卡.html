@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡</title>
+	<style>
+       .daohang{
+       	  width: 1000px;
+       	  height: 50px;
+       	  background: #ededed;
+       	  text-align: center;
+       	  line-height: 50px;
+       	  margin: 0 auto;
+       	  position: relative;
+          
+       }
+       .daohang li{
+       	 list-style: none;
+       	 width:200px;
+       	 height: 50px;
+       	 float: left;
+       }
+       .daohang li:hover{
+       	 background: #f4f4f4;
+       }
+       .daohang a{
+       	  color: #3E3E3B;
+       	  text-decoration: none;
+       	  font-family: "微软雅黑";
+       	  font-size: 16px;
+
+       }
+       .daohang a:hover{
+          color:#124DE3;
+
+       }
+       .item{
+       	  width: 1000px;
+       	  height: 50px;
+       	  background:#F2F2F2; 
+       	  text-align: center;
+       	  position: absolute;
+       	  left: 0;
+       	  bottom:-50px;
+       	  display: none;
+       }
+	</style>
+</head>
+<body>
+	<div class="daohang">
+		<li>
+			<a href="javascript">首页</a>
+		</li>
+		<li class="tab">
+			<a href="javascript">移动商城</a>
+			<div class="item">
+				1111
+			</div>
+		</li>
+		<li class="tab">
+			<a href="javascript">我的移动</a>
+			<div class="item">
+				2222
+			</div>
+		</li>
+		<li class="tab">
+			<a href="javascript">网上营业厅</a>
+			<div class="item">
+				3333
+			</div>
+		</li>
+		<li class="tab">
+			<a href="javascript">服务与支持</a>
+			<div class="item">
+				4444
+			</div>
+		</li>
+	</div>
+</body>
+<script>
+	window.onload=function(){
+		var dao=document.getElementsByClassName("daohang")[0];
+        var lis=document.getElementsByClassName("tab");
+        var item=document.getElementsByClassName("item");
+        for (var i=0;i<lis.length;i++){
+        	lis[i].index=i;
+        	lis[i].onmouseover=function(){
+        		for(var j=0;j<lis.length;j++){
+        			item[j].style.display="none";
+        		}
+        		item[this.index].style.display="block";
+        	}
+        	lis[i].onmouseout=function(){
+        		for (var j=0;j<lis.length;j++){
+        			item[j].style.display="none";
+        		}
+        	}
+        }
+		}
+</script>
+</html>
