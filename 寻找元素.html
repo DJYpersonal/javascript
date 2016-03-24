@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.box{
+			width: 500px;
+			height: 500px;
+			border:1px solid black;
+			margin: 50px auto;
+			position: relative;
+		}
+		.xiao{
+			width:50px;
+			height: 50px;
+			border:1px solid black;
+			position: absolute;
+		}
+		ul{
+			cursor: default;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<ul>
+		<li data-s="id">通过ID来选择span标签</li>
+		<li data-s="cn">通过className来选择span标签</li>
+		<li data-s="ta">通过TagName来选择span标签</li>
+		<li data-s="qs">通过querySelector来选择span标签</li>
+		<li data-s="qsa">通过querySelectorAll来选择span标签</li>
+    </ul>
+	
+</body>
+<script>
+	var box=document.querySelector(".box");
+
+	var drop=function(){
+		var rm=Math.floor(Math.random()*10);
+		for(var i=0,el;i<10;i++){
+			el = document.createElement((i===rm)?'span':'div');
+			el.className='xiao';
+			box.appendChild(el);
+			if (i===rm){
+				el.id='span';
+				el.className='xiao';
+			}
+
+			el.style.left= Math.floor(Math.random()*(box.offsetWidth-el.offsetWidth))+'px';
+			el.style.top= Math.floor(Math.random()*(box.offsetHeight-el.offsetHeight))+'px';
+		}
+
+	}
+	drop();
+	var em=box.nextElementSibling.children;
+	for (var i=0;i<em.length;i++){
+		em[i].onclick=function(){
+			var el;
+			var type=this.getAttribute('data-s');
+			console.log(type)
+			if(type==='id'){
+				el=document.getElementById('span');
+			}else if(type==='cn'){
+				el=document.getElementsByClassName('xiao')[0];
+			}else if(type==='ta'){
+				el=document.getElementsByTagName('span')[0];
+			}else if(type==='qs'){
+				el=document.querySelector('#span');
+			}else if(type==='qsa'){
+				el=document.querySelectorAll('span')[0];
+			}
+			el.style.background='red';
+			setTimeout(function(){
+                el.style.background='none';
+				box.innerHTML='';
+				drop();
+			},100)
+		}
+	}
+    
+	
+	
+	
+
+
+
+
+
+</script>
+</html>
