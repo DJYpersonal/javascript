@@ -90,55 +90,102 @@ obj.console();
 > window对象中很多属性和方法
 > 这些属性和方法不用加window.就可以调用和使用
 
-dom对象  dom集合
-  
+按照我们正常编程思路
+第一步就是找出元素
+我们从document对象开始，利用它身上的方法
+找出我们需要的元素（dom元素 或 dom集合）
 
 ### 选取元素
-
-
+*  var el= document.creatElement();
 *  var el= document.getElementById()
+*  var el=document.querySelector()           //传进的是CSS选择器
+
 *  var el= document.getElementsByClassName()
 *  var el= document.getElementsByTagName()
-   var all=document.getElementsByTagName("*")  //获取页面中所有的元素
 *  var el= document.getElementsByName()
+*  var el=document.querySelectorAll()          //ie8
+
+经过这一步我们会得到一个dom元素或dom集合
+
+dom对象
+js会用一个很大的对象来代表页面中我们看到的那个元素
+```javascript
+{
+  offestHeight:11111
+  offsetLeft:1111
+  offsetTop:111
+  offsetWidth:12222
+
+}
+```
+dom集合
+在一个类数组对象中存储很多dom对象构成一个集合
+```javascript
+
+
+
+```
 
 ### 筛选元素
+>从一个dom对象开始，根据逻辑关系再去寻找dom对象
 
+>父元素
 * el.parentNode
+* el.parentElement
+
+>子元素
+* el.children
 * el.childNodes
+
 * el.firstChild
+* el.firstElementChild
+
 * el.lastChild
+* el.lastElementChild
+
+>兄弟元素
 * el.nextSibling
+* el.nextElementSibling
+
 * el.previousSibling
+* el.previousElementSibling
 
-### 操作样式
-el.style.color='red';
-el.currentStyle.width=200;      //IE
-el.offsetWidth
-el.offsetHeight
+### 属性操作  (Element)
+
+* el.setAttribute()
+* el.getAttribute()
+* el.removeAttribute()
+* el.hasAttribute()
+* el.className
+* el.id
+* el.classList
+
+### 节点操作  (NOde)
+
+* el.appendChild()
+* el.removeChild()
+* el.isertBefore()
+* el.cloneNode()
+* el.replaceChild()
+
+### 获取元素信息  (HTMLElement)
+
+* el.offsetTop
+* el.offsetLeft
+* el.offsetWidth
+* el.offsetHeight
+* el.offsetParent
+* el.getBoundingClietRect()
+* el.innerHTML
+
+### 样式操作
+* el.style (读取行内样式的值，设置行内样式的值)
 
 
-### 获取元素信息
-el.style.offsetTop
-el.style.offsetLeft
-el.style.offsetWidth
-el.style.offsetHeight
 
-### 操作属性
-
-document.title
-<!-- document.bgColor
-document.fgColor
-document.URL -->
-el.setAttribute("aa","bb")  //添加自定义属性
-el.getAttribute("aa")       //获取自定义属性
-
-### 节点操作
-
-document.createElement("")
-
-
-### 其他
-innerHTML
-innerText
-textContent
+var obj= {
+	a:1,
+	b:2,
+	set c (x){ console.log(111)};
+	get c () { return 5}
+}
